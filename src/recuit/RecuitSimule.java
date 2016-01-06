@@ -9,6 +9,8 @@ public class RecuitSimule {
 	private double Tmax;
 	private double Tmin;
 	private double Alpha;
+	private double Nbt;
+	private double Nbi;
 	private Keyboard finalSolution;
 	
 	
@@ -16,19 +18,30 @@ public class RecuitSimule {
 		this.Tmax = 1;
 		this.Tmin = 0.0001;
 		this.Alpha = 0.9;
+		this.Nbt = 50;
+		this.Nbi = 10; 
 	}
 	
-	public RecuitSimule(int tmax, int tmin, int alpha){
+	public RecuitSimule(double tmax, double tmin, double alpha,double nbt,double nbi){
 		this.Tmax = tmax;
 		this.Tmin = tmin;
 		this.Alpha = alpha;
+		this.Nbt = nbt;
+		this.Nbi = nbi;
 	}
 	
 	public void Compute(){
 		Keyboard firstSol = this.GenerateFirstSol();
-		while(this.Tmax>Tmin){
-			
-			
+		//compute cost function
+		for(int i=0;i<Nbt;i++){
+			for(int j=0;j<Nbi;j++){
+				/*if(){
+					
+				}
+				else{
+					
+				}*/
+			}
 		}
 	}
 	
@@ -45,6 +58,7 @@ public class RecuitSimule {
 		}
 		return initialSolution;
 	}
+	
 	
 	public int[] pickNRandom(int[] array, int n) {
 
