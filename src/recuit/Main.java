@@ -9,9 +9,8 @@ public class Main {
 		RecuitSimule rs = new RecuitSimule();
 		Keyboard kb = rs.GenerateFirstSol();
 		kb.display();
-		kb.swap(0, 39);
-		kb.display();
-		
+		Keyboard kb2 = rs.generateNeighbor(kb);
+		kb2.display();
 		
 	}
 

@@ -22,7 +22,7 @@ public class Keyboard {
 	}
 	
 	public boolean swap(int x, int y){
-		boolean swapped;
+		boolean swapped = false;
 		if(this.clavier[x]!= ' ' || this.clavier[y]!=' '){
 			char temp = this.clavier[x];
 			this.clavier[x] = this.clavier[y];
@@ -34,6 +34,7 @@ public class Keyboard {
 		}
 		return swapped;
 	}
+	
 	
 	public double getCostBinary(int a, int b) { //Calculate the cost between two letters (w.r.t their index)
 		Bigramme bigramme = new Bigramme("hello");
