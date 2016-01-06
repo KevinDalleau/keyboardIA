@@ -34,6 +34,15 @@ public class Keyboard {
 		}
 		return swapped;
 	}
+	
+	public double getCostBinary(int a, int b) { //Calculate the cost between two letters (w.r.t their index)
+		Bigramme bigramme = new Bigramme("hello");
+		int freq = bigramme.frequence(a, b);
+		double distance = getDistance(a,b);
+		double cost = freq*distance;
+		
+		return cost;
+	}
 
 	public double getDistance(double a, double b) {
 		double distance = Math.sqrt((Math.pow((a-(a%10))/10,2))+Math.pow((b%10-a),2));
