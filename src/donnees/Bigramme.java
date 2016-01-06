@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Bigramme {
-	private final static String donnees = "freq.txt";
+    private final static String donnees = "freq.txt";
     private HashMap<CoupleEntiers, Integer> frequences;
     public Bigramme(){
         frequences = new HashMap<>();
