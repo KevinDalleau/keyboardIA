@@ -13,15 +13,17 @@ public class RecuitSimule {
 	private double Alpha;
 	private double Nbt;
 	private double Nbi;
+	private double emax;
 	private Keyboard finalSolution;
 
 
 	public RecuitSimule(){
-		this.Tmax = 1;
+		this.Tmax = 1000;
 		this.Tmin = 0.0001;
 		this.Alpha = 0.9;
 		this.Nbt = 50;
 		this.Nbi = 10; 
+		this.emax = 100;
 	}
 
 	public RecuitSimule(double tmax, double tmin, double alpha,double nbt,double nbi){
@@ -32,19 +34,31 @@ public class RecuitSimule {
 		this.Nbi = nbi;
 	}
 
-	public void Compute(){
+	public Keyboard Compute(){
 		Keyboard firstSol = this.GenerateFirstSol();
-		//compute cost function
-		for(int i=0;i<Nbt;i++){
-			for(int j=0;j<Nbi;j++){
-				/*if(){
-
-				}
-				else{
-
-				}*/
+		Keyboard bestSol = new Keyboard();
+		bestSol.copy(firstSol);
+		int energy = (int) firstSol.getCost();
+		int bestEnergy = energy;
+		int t = 0;
+		while(t<Tmax && energy>emax ){
+			double T = t/Tmax;
+			Keyboard newkey = this.generateNeighbor(firstSol);
+			//newEnergy
+			int newEnergy = (int) newkey.getCost();
+			if(this.acceptanceProbability(energy, newEnergy, T)>Math.random()){
+				firstSol.copy(newkey);
+				energy = newEnergy;
 			}
+			if(newEnergy<bestEnergy){
+				bestSol.copy(newkey);
+				bestEnergy = newEnergy;
+			}
+			t++;
+			
 		}
+		System.out.println(bestEnergy);
+		return bestSol;
 	}
 
 	public Keyboard GenerateFirstSol(){
@@ -67,11 +81,11 @@ public class RecuitSimule {
 			array[i]=i;
 		}
 		boolean done = false;
-		Keyboard keyb = key;
+		Keyboard keyb = new Keyboard();
+		keyb.copy(key);
 		int[] rand ;
 		do{
 			rand = this.pickNRandom(array, 2);
-			System.out.println(rand[0] + "  " + rand[1]);
 			done = keyb.swap(rand[0], rand[1]);
 		}while(!done);
 		return keyb;

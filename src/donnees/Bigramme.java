@@ -6,11 +6,12 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Bigramme {
+	private final static String donnees = "freq.txt";
     private HashMap<CoupleEntiers, Integer> frequences;
-    public Bigramme(String file){
+    public Bigramme(){
         frequences = new HashMap<>();
         try (
-            FileReader fr = new FileReader(file);
+            FileReader fr = new FileReader(donnees);
             Scanner sc = new Scanner (fr);
         ){
             int i = 0;
