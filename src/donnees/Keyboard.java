@@ -35,6 +35,11 @@ public class Keyboard {
 		return swapped;
 	}
 	
+	public void copy(Keyboard key){
+		for(int i = 0;i<key.clavier.length;i++){
+			this.clavier[i] = key.clavier[i];
+		}
+	}
 	
 	public double getCostBinary(int a, int b) { //Calculate the cost between two letters (w.r.t their index)
 		Bigramme bigramme = new Bigramme("hello");
