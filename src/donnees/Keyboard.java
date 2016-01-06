@@ -1,12 +1,26 @@
 package donnees;
 
-import java.util.Arrays;
+import commun.Helpers;
 
 public class Keyboard {
 	private char[] clavier;
 
 	public Keyboard(){
 		this.clavier = new char[40];
+	}
+        
+        public static Keyboard GenerateFirstSol(){
+		Keyboard initialSolution = new Keyboard();
+		char[] alphabet = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+		int array[] = new int[40];
+		for(int i=0;i<40;i++){
+			array[i]=i;
+		}
+		int[] picks = Helpers.pickNRandom(array, 26);
+		for(int i=0;i<26;i++){
+			initialSolution.setCharAt(alphabet[i], picks[i]);
+		}
+		return initialSolution;
 	}
 
 	public void setCharAt(char a,int x){

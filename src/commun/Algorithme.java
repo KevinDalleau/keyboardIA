@@ -7,18 +7,23 @@ import java.util.Observable;
 import java.util.Observer;
 
 public abstract class Algorithme extends Observable{
-    private Keyboard resultat;
-    private HashMap<String,Number> parametres;
-    private HashMap<String, Number> donnees;
-    public Algorithme(List<Observer> l, HashMap<String,Number> parametres, HashMap<String, Number> donnees){
+    protected Keyboard resultat;
+    protected HashMap<String,Number> parametres;
+    protected HashMap<String, Number> donnees;
+    public Algorithme(List<Observer> l){
         for(Observer o : l){
             this.addObserver(o);
         }
-        this.parametres = parametres;
-        this.donnees = donnees;
+ 
+        this.parametres = new HashMap<>();
+        this.donnees = new HashMap<>();
+        
+        this.configure();
+        
         this.setChanged();
         this.notifyObservers();
     }
+    public abstract void configure();
     public Number getParametre(String s){
         return this.parametres.get(s);
     }
@@ -28,12 +33,10 @@ public abstract class Algorithme extends Observable{
     public void setDonnee(String s, Number n){
         this.donnees.put(s, n);
     }
-    protected abstract Keyboard updateMeilleurResultat();
     protected abstract void launch();
     
     public void resoudre(){
         this.launch();
-        this.updateMeilleurResultat();
         this.setChanged();
         this.notifyObservers();
     }
