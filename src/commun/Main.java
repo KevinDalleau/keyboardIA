@@ -1,3 +1,5 @@
+package commun;
+
 
 import gui.Fenetre;
 import javax.swing.JFrame;
