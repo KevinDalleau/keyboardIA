@@ -39,17 +39,34 @@ public class Keyboard {
 
 
 	public int getLetter(int a) { //Get the letter at a given position (a) on the keyboard.
-		int index = Arrays.asList(this.clavier).indexOf(a);
+		int index = this.clavier[a];
 		return index;
 	}
 
 	public double getCostBinary(int a, int b) { //Calculate the cost between two indexes of letters. a and b : positions on the 4*10 keyboard
 		Bigramme bigramme = new Bigramme();
-		int aLetter = this.getLetter(a);
-		int bLetter = this.getLetter(b);
+		int aLetter = this.getLetter(a)-65;
+		int bLetter = this.getLetter(b)-65;
 		int freq = bigramme.frequence(aLetter, bLetter);
 		double distance = getDistance(a,b);
 		double cost = freq*distance;
+
+		return cost;
+	}
+	
+	public double getCost() {
+		char[] clavier = this.clavier;
+		int cost = 0;
+		for(int i=0; i < 40;i++) {
+			if(!(clavier[i]==0)) {
+				for(int j=0; j<40;j++) {
+					if(!(clavier[j]==0) && i!=j) {
+						cost += this.getCostBinary(i,j);
+					}
+				}
+			}
+		}
+		System.out.println(cost);
 
 		return cost;
 	}
