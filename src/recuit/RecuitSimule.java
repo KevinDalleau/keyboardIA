@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import donnees.Keyboard;
+
 public class RecuitSimule {
 	private double Tmax;
 	private double Tmin;

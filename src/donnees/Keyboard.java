@@ -1,4 +1,4 @@
-package recuit;
+package donnees;
 
 public class Keyboard {
 	private char[] clavier;
@@ -19,6 +19,20 @@ public class Keyboard {
 			}
 			System.out.println("\n");
 		}
+	}
+	
+	public boolean swap(int x, int y){
+		boolean swapped;
+		if(this.clavier[x]!= ' ' || this.clavier[y]!=' '){
+			char temp = this.clavier[x];
+			this.clavier[x] = this.clavier[y];
+			this.clavier[y] = temp;
+			swapped = true;
+		}
+		else{
+			swapped = false;
+		}
+		return swapped;
 	}
 
 	public double getDistance(double a, double b) {
