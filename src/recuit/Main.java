@@ -1,4 +1,4 @@
-    package recuit;
+package recuit;
 
 import donnees.Keyboard;
 
