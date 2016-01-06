@@ -20,4 +20,9 @@ public class Keyboard {
 			System.out.println("\n");
 		}
 	}
+
+	public double getDistance(double a, double b) {
+		double distance = Math.sqrt((Math.pow((a-(a%10))/10,2))+Math.pow((b%10-a),2));
+		return distance;
+	}
 }
