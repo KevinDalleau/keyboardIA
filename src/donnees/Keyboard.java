@@ -37,14 +37,16 @@ public class Keyboard {
 		return swapped;
 	}
 	
-	public int getIndex(char a) {
+	public int getLetter(int a) { //Get the letter at a given position (a) on the keyboard.
 		int index = Arrays.asList(this.clavier).indexOf(a);
 		return index;
 	}
 	
-	public double getCostBinary(int a, int b) { //Calculate the cost between two indexes of letters
+	public double getCostBinary(int a, int b) { //Calculate the cost between two indexes of letters. a and b : positions on the 4*10 keyboard
 		Bigramme bigramme = new Bigramme();
-		int freq = bigramme.frequence(a, b);
+		int aLetter = this.getLetter(a);
+		int bLetter = this.getLetter(b);
+		int freq = bigramme.frequence(aLetter, bLetter);
 		double distance = getDistance(a,b);
 		double cost = freq*distance;
 		
