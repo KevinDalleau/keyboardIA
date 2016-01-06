@@ -1,5 +1,7 @@
 package donnees;
 
+import java.util.Arrays;
+
 public class Keyboard {
 	private char[] clavier;
 	
@@ -35,9 +37,13 @@ public class Keyboard {
 		return swapped;
 	}
 	
+	public int getIndex(char a) {
+		int index = Arrays.asList(this.clavier).indexOf(a);
+		return index;
+	}
 	
-	public double getCostBinary(int a, int b) { //Calculate the cost between two letters (w.r.t their index)
-		Bigramme bigramme = new Bigramme("hello");
+	public double getCostBinary(int a, int b) { //Calculate the cost between two indexes of letters
+		Bigramme bigramme = new Bigramme();
 		int freq = bigramme.frequence(a, b);
 		double distance = getDistance(a,b);
 		double cost = freq*distance;
@@ -50,3 +56,4 @@ public class Keyboard {
 		return distance;
 	}
 }
+
