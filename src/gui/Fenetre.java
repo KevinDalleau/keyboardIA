@@ -37,8 +37,8 @@ public class Fenetre extends JFrame implements Observer{
         
         rightPanel.setLayout(new GridLayout(2, 1));
         this.ds = new DefaultXYDataset();
-        JFreeChart j = ChartFactory.createXYLineChart("Évolution du coût",
-                "Itérations", "Distance cumulée", ds, PlotOrientation.VERTICAL, true, true,
+        JFreeChart j = ChartFactory.createXYLineChart("Comparaison de métaheuristiques",
+                "Itérations", "Distance moyenne", ds, PlotOrientation.VERTICAL, true, true,
                 false);
         this.graphique = new ChartPanel(j);
         this.graphique.setPreferredSize(new Dimension(400,400));

@@ -48,7 +48,6 @@ public class RechercheTabou extends Algorithme {
 			this.updateResultat(sBest);
 			iteration++;
 		}
-		this.setDonnee("Coût final", bestCost);
 		return sBest;
 	}
 	
