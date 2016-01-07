@@ -38,7 +38,7 @@ public class AlgoRandom extends Algorithme{
             double cout = kl.get(i).getCost(Bigramme);
             if(cout < coutMinimal){
                 coutMinimal = cout;
-                this.resultat = kl.get(1);
+                this.resultat = kl.get(i);
             }
         }
     }
