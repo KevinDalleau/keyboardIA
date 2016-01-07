@@ -5,7 +5,7 @@ import java.util.Random;
 
 import commun.Helpers;
 
-public class Keyboard {
+public class Keyboard implements Cloneable {
 	private char[] clavier;
 
 	public Keyboard(){
@@ -120,19 +120,15 @@ public class Keyboard {
 		while(((pos = random.nextInt(40)) != ' ') && i < 1) { //Attention, le reste du code est très sale
 			System.out.println(pos);
 			if(pos%10 != 0) { // Si on n'est pas sur le bord gauche, on swappe avec la lettre à gauche
-				System.out.println("Gauche"+pos);
 				k1.swap(pos, pos-1);
 			}
 			if(pos/10>1) { // Si on n'est pas sur le bord haut, on swappe avec la lettre en haut
-				System.out.println("Haut"+pos);
 				k2.swap(pos, pos-10);
 			}
 			if(pos%10!=9) { // Si on n'est pas sur le bord droit, on swappe avec la lettre à droite
-				System.out.println("Droit"+pos);
 				k3.swap(pos, pos+1);
 			}
 			if(pos/10<3){ // Si on n'est pas sur le bord bas, on swappe avec la lettre en bas
-				System.out.println("Bas"+pos);
 				k4.swap(pos, pos+10);
 			}
 			i++;
