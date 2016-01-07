@@ -21,8 +21,8 @@ public class Donnees extends JPanel implements Observer{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         if(this.donnees != null){
+            int i = 1;
             for(Entry<String, Number> e : this.donnees.entrySet()){
-                int i = 1;
                 g.drawString(e.getKey(), Donnees.OFFSET, Donnees.OFFSET * (i ++));
                 g.drawString("" + e.getValue(), Donnees.OFFSET + Donnees.TAB, Donnees.OFFSET * (i ++));
             }

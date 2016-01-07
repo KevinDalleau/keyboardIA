@@ -45,7 +45,7 @@ public class RecuitSimule extends Algorithme{
 			t++;
 			
 		}
-		this.setDonnee("Co�t final", bestEnergy);
+		this.setDonnee("Coût final", bestEnergy);
 		return bestSol;
 	}
 
@@ -77,6 +77,7 @@ public class RecuitSimule extends Algorithme{
 		this.parametres.put("Temperature",1000.0);
 		this.parametres.put("Energy",0.0);
 		this.donnees.put("Duree", 0);
+                this.donnees.put("Coût final", 0);
 	}
 
 	@Override
