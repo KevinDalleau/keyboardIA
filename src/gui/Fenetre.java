@@ -1,20 +1,23 @@
 package gui;
 
+import commun.Algorithme;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 public class Fenetre extends JFrame {
+    private Algorithme algo;
+    
     private Clavier clavier;
     private Donnees donnees;
     private Parametres parametres;
     
     public Fenetre(){
         super("Disposition Clavier DKN");
-        
+                
         this.clavier = new Clavier();
         this.donnees = new Donnees();
         this.parametres = new Parametres();
-        
+                
         this.setLayout(new BorderLayout());
         
         this.add(this.clavier, BorderLayout.CENTER);

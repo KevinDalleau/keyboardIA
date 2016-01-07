@@ -3,12 +3,8 @@ package random;
 import commun.Algorithme;
 import donnees.Keyboard;
 import java.util.List;
-import java.util.Observer;
 
 public class AlgoRandom extends Algorithme{
-    public AlgoRandom(List<Observer> l){
-        super(l);
-    }
     private List<Keyboard> kl;
 
     @Override

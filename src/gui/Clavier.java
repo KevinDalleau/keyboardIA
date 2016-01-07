@@ -2,9 +2,10 @@ package gui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.Observer;
 import javax.swing.JPanel;
 
-public class Clavier extends JPanel{
+public class Clavier extends JPanel {
     private final static int coteTouche = 40;
     public Clavier(){
         super();

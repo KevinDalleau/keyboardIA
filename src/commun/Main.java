@@ -2,12 +2,15 @@ package commun;
 
 
 import gui.Fenetre;
-import javax.swing.JFrame;
+import java.util.ArrayList;
+import java.util.List;
+import random.AlgoRandom;
 
 
 public class Main {
-    private final static String donnees = "freq.txt";
+    public final static List<Algorithme> algorithmes = new ArrayList<>();
     public static void main(String[] args){
+        Main.algorithmes.add(new AlgoRandom());
         Fenetre f = new Fenetre();
     }    
 }
