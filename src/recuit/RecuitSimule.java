@@ -24,9 +24,8 @@ public class RecuitSimule extends Algorithme{
 
 	public Keyboard Compute(){
 		Keyboard firstSol = Keyboard.GenerateFirstSol();
-                this.resultat = new Keyboard();
-		this.resultat.copy(firstSol);
-                this.update();
+                Keyboard bestSol = new Keyboard();
+		bestSol.copy(firstSol);
 		int energy = (int) firstSol.getCost(Bigramme);
 		int bestEnergy = energy;
 		int t = 0;
@@ -40,12 +39,11 @@ public class RecuitSimule extends Algorithme{
 				energy = newEnergy;
 			}
 			if(newEnergy<bestEnergy){
-				this.resultat.copy(newkey);
-                                this.update();
+				bestSol.copy(newkey);
 				bestEnergy = newEnergy;
 			}
 			t++;
-			
+                        this.updateResultat(bestSol, bestEnergy);
 		}
 		this.setDonnee("Coût final", bestEnergy);
 		return this.resultat;

@@ -4,6 +4,8 @@ import commun.Algorithme;
 import commun.Main;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
@@ -30,20 +32,20 @@ public class Fenetre extends JFrame {
         this.parametres = new Parametres();
         this.boutons = new Boutons(this);
         JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new GridBagLayout());
+        rightPanel.setLayout(new GridLayout(2, 1));
         DefaultXYDataset ds = new DefaultXYDataset();
-        double[][] data = { {100.0, 30, 0.3}, {1, 200, 300 }};
-        ds.addSeries("series1", data);
-        JFreeChart j = ChartFactory.createXYLineChart("Test Chart",
-                "x", "y", ds, PlotOrientation.VERTICAL, true, true,
+        double[][] data = { {0}, {0}};
+        ds.addSeries("Coût", data);
+        JFreeChart j = ChartFactory.createXYLineChart("Évolution du coût",
+                "Itérations", "Distance cumulée", ds, PlotOrientation.VERTICAL, true, true,
                 false);
         this.graphique = new ChartPanel(j);
                 
         this.setLayout(new BorderLayout());
         
-        this.add(this.clavier, BorderLayout.CENTER);
+        this.add(this.graphique, BorderLayout.CENTER);
         this.add(rightPanel, BorderLayout.EAST);
-        rightPanel.add(this.graphique);
+        rightPanel.add(this.clavier);
         rightPanel.add(this.donnees);
         
         this.add(this.parametres, BorderLayout.NORTH);
