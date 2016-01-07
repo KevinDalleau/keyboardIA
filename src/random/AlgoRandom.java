@@ -1,15 +1,19 @@
 package random;
 
 import commun.Algorithme;
+import donnees.Bigramme;
 import donnees.Keyboard;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 
 public class AlgoRandom extends Algorithme{
-    public AlgoRandom(List<Observer> l){
-        super(l);
-    }
     private List<Keyboard> kl;
+    private Bigramme Bigramme;
+    
+    public AlgoRandom(Bigramme bigramme){
+    	this.Bigramme = bigramme;
+    }
 
     @Override
     protected void launch() {
@@ -17,6 +21,7 @@ public class AlgoRandom extends Algorithme{
         int taille = (int) this.getParametre("Taille population");
        
         //on applique l'algo
+        this.kl = new ArrayList<>();
         double temps = System.currentTimeMillis();
         for(int i = 0; i < taille; i ++){
             kl.add(Keyboard.GenerateFirstSol());
@@ -24,16 +29,16 @@ public class AlgoRandom extends Algorithme{
         temps = System.currentTimeMillis() - temps;
         
         //on actualise les donnees a afficher
-        this.setParametre("Duree", temps);
+        this.setDonnee("Duree (ms)", temps);
         
         //on met a jour le meilleur individu (a afficher)
-        double coutMinimal = kl.get(0).getCost();
+        double coutMinimal = kl.get(0).getCost(Bigramme);
         this.resultat = kl.get(0);
         for(int i = 1; i < kl.size(); i ++){
-            double cout = kl.get(i).getCost();
+            double cout = kl.get(i).getCost(Bigramme);
             if(cout < coutMinimal){
                 coutMinimal = cout;
-                this.resultat = kl.get(1);
+                this.resultat = kl.get(i);
             }
         }
     }
@@ -42,7 +47,12 @@ public class AlgoRandom extends Algorithme{
     public void configure() {
         //on met les parametres, les donnees et leurs valeurs par defaut
         this.parametres.put("Taille population", 10);
-        this.donnees.put("Duree", 0);
+        this.donnees.put("Duree (ms)", 0);
+    }
+
+    @Override
+    public String getNom() {
+        return "Clavier Aléatoire";
     }
 
 }

@@ -1,61 +1,54 @@
 package recuit;
 
+import commun.Algorithme;
 import commun.Helpers;
-
+import donnees.Bigramme;
 import donnees.Keyboard;
 
-public class RecuitSimule {
+public class RecuitSimule extends Algorithme{
 	private double Tmax;
-	private double Tmin;
-	private double Alpha;
-	private double Nbt;
-	private double Nbi;
-	private double emax;
-	private Keyboard finalSolution;
-
-
-	public RecuitSimule(){
+	private double Emax;
+	private double finalCost;
+	private Bigramme Bigramme;
+	
+	public RecuitSimule(Bigramme bigramme){
 		this.Tmax = 1000;
-		this.Tmin = 0.0001;
-		this.Alpha = 0.9;
-		this.Nbt = 50;
-		this.Nbi = 10; 
-		this.emax = 100;
+		this.Emax = 100;
+		this.Bigramme = bigramme;
 	}
 
-	public RecuitSimule(double tmax, double tmin, double alpha,double nbt,double nbi){
+	public RecuitSimule(double tmax,double emax){
 		this.Tmax = tmax;
-		this.Tmin = tmin;
-		this.Alpha = alpha;
-		this.Nbt = nbt;
-		this.Nbi = nbi;
+		this.Emax = emax;
 	}
 
 	public Keyboard Compute(){
 		Keyboard firstSol = Keyboard.GenerateFirstSol();
-		Keyboard bestSol = new Keyboard();
-		bestSol.copy(firstSol);
-		int energy = (int) firstSol.getCost();
+                this.resultat = new Keyboard();
+		this.resultat.copy(firstSol);
+                this.update();
+		int energy = (int) firstSol.getCost(Bigramme);
 		int bestEnergy = energy;
 		int t = 0;
-		while(t<Tmax && energy>emax ){
+		while(t<Tmax && energy>Emax ){
 			double T = t/Tmax;
 			Keyboard newkey = this.generateNeighbor(firstSol);
 			//newEnergy
-			int newEnergy = (int) newkey.getCost();
+			int newEnergy = (int) newkey.getCost(Bigramme);
 			if(this.acceptanceProbability(energy, newEnergy, T)>Math.random()){
 				firstSol.copy(newkey);
 				energy = newEnergy;
 			}
 			if(newEnergy<bestEnergy){
-				bestSol.copy(newkey);
+				this.resultat.copy(newkey);
+                                this.update();
 				bestEnergy = newEnergy;
 			}
 			t++;
 			
 		}
-		System.out.println(bestEnergy);
-		return bestSol;
+		this.setDonnee("Coût final", bestEnergy);
+		return this.resultat;
 	}
 
 	public Keyboard generateNeighbor(Keyboard key){
@@ -80,4 +73,46 @@ public class RecuitSimule {
 		}
 		return Math.exp((energy - newEnergy) / temperature);
 	}
+
+	@Override
+	public void configure() {
+		this.parametres.put("Temperature",1000.0);
+		this.parametres.put("Energy",0.0);
+		this.donnees.put("Duree", 0);
+                this.donnees.put("Coût final", 0);
+	}
+
+	@Override
+	protected void launch() {
+            this.setTmax((double)this.getParametre("Temperature"));
+            this.setEmax((double)this.getParametre("Energy"));
+            double temps = System.currentTimeMillis();
+            resultat = this.Compute();
+	    temps = System.currentTimeMillis() - temps;
+	     
+	     this.setDonnee("Duree", temps);
+	}
+
+	public double getTmax() {
+		return Tmax;
+	}
+
+	public void setTmax(double tmax) {
+		Tmax = tmax;
+	}
+
+	public double getEmax() {
+		return Emax;
+	}
+
+	public void setEmax(double emax) {
+		this.Emax = emax;
+	}
+
+    @Override
+    public String getNom() {
+        return "Recuit simulé";
+    }
+	
+	
 }	
