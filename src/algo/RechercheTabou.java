@@ -76,7 +76,6 @@ public class RechercheTabou extends Algorithme {
 			this.updateResultat(sBest);
 			iteration++;
 		}
-		this.setDonnee("Coût final", bestCost);
 		return sBest;
 	}
 	
@@ -136,24 +135,17 @@ public class RechercheTabou extends Algorithme {
 
 	@Override
 	public void configure() {
-		this.parametres.put("Iterations",10000.0);
-		this.parametres.put("Taille_liste_taboue",4000.0);
-		this.donnees.put("Duree", 0);
-                this.donnees.put("Coût final", 0);
-		
+                super.configure();
+		this.parametres.put("Iterations",10000);
+		this.parametres.put("Taille_liste_taboue",1000);		
 	}
 
 	@Override
 	protected void launch() {
-		this.setSizeTabuList((double)this.getParametre("Taille_liste_taboue"));
-        this.setNumberOfLoops((double)this.getParametre("Taille_liste_taboue"));
-        double temps = System.currentTimeMillis();
-        this.compute();
-    temps = System.currentTimeMillis() - temps;
-     
-     this.setDonnee("Duree", temps);
-		
-	}
+            this.setSizeTabuList((int)this.getParametre("Taille_liste_taboue"));
+            this.setNumberOfLoops((int)this.getParametre("Taille_liste_taboue"));
+            this.compute();
+    	}
 
 	@Override
 	public String getNom() {
