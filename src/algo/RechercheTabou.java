@@ -7,24 +7,26 @@ import java.util.List;
 
 import donnees.Keyboard;
 
-public class RechercheTabou {
+public class RechercheTabou extends Algorithme {
 	private LinkedList<Keyboard> tabuList; //Liste de claviers déjà visités
+	private int numberOfLoops;
 	private int sizeTabuList;
 	private Keyboard finalSolution;
 	
 	public RechercheTabou() {
 		this.tabuList = new LinkedList<Keyboard>();
-		this.sizeTabuList = 3;
+		this.numberOfLoops = 10000;
+		this.sizeTabuList = 4000;
 	}
 	
-	public Keyboard compute(int numberOfLoops) {
+	public Keyboard compute() {
 		int iteration = 0;
 		Keyboard s0 = GenerateFirstSol();
 		Keyboard s = s0;
 		Keyboard sBest = s;
 		double bestCost = s.getCost();
 		LinkedList<Keyboard> tabuList = new LinkedList<Keyboard>();
-		while(iteration < numberOfLoops) { 
+		while(iteration < this.numberOfLoops) { 
 			Keyboard bestCandidate = new Keyboard();
 			double sBestCost = sBest.getCost();
 			for(Keyboard k : s.getNeighborhood()) {
@@ -101,6 +103,41 @@ public class RechercheTabou {
 
 	public void setFinalSolution(Keyboard finalSolution) {
 		this.finalSolution = finalSolution;
+	}
+
+	@Override
+	public void configure() {
+		this.parametres.put("Iterations",10000.0);
+		this.parametres.put("Taille_liste_taboue",4000.0);
+		this.donnees.put("Duree", 0);
+                this.donnees.put("Coût final", 0);
+		
+	}
+
+	@Override
+	protected void launch() {
+		this.setSizeTabuList((int)this.getParametre("Taille_liste_taboue"));
+        this.setNumberOfLoops((int)this.getParametre("Taille_liste_taboue"));
+        double temps = System.currentTimeMillis();
+        this.compute();
+    temps = System.currentTimeMillis() - temps;
+     
+     this.setDonnee("Duree", temps);
+		
+	}
+
+	@Override
+	public String getNom() {
+		
+		return "Recherche taboue";
+	}
+
+	public int getNumberOfLoops() {
+		return numberOfLoops;
+	}
+
+	public void setNumberOfLoops(int numberOfLoops) {
+		this.numberOfLoops = numberOfLoops;
 	}
 
 	
