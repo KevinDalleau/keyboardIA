@@ -19,7 +19,7 @@ public class RecuitSimule extends Algorithme{
 		this.Emax = emax;
 	}
 
-	public Keyboard Compute(){
+	public void Compute(){
 		Keyboard firstSol = Keyboard.GenerateFirstSol();
                 Keyboard bestSol = new Keyboard();
 		bestSol.copy(firstSol);
@@ -40,10 +40,9 @@ public class RecuitSimule extends Algorithme{
 				bestEnergy = newEnergy;
 			}
 			t++;
-                        this.updateResultat(bestSol, bestEnergy);
+                        this.updateResultat(bestSol);
 		}
 		this.setDonnee("Coût final", bestEnergy);
-		return this.resultat;
 	}
 
 	public Keyboard generateNeighbor(Keyboard key){
@@ -82,7 +81,7 @@ public class RecuitSimule extends Algorithme{
             this.setTmax((double)this.getParametre("Temperature"));
             this.setEmax((double)this.getParametre("Energy"));
             double temps = System.currentTimeMillis();
-            resultat = this.Compute();
+            this.Compute();
 	    temps = System.currentTimeMillis() - temps;
 	     
 	     this.setDonnee("Duree", temps);

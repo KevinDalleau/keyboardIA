@@ -1,34 +1,9 @@
-<<<<<<< HEAD
 bin
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
 # Package Files #
-*.jar
-*.war
-*.ear
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-
-#eclipse
-.classpath
-.project
-.settings
-
-#netbeans
-nbproject
-build.xml
-manifest.mf
-=======
-bin
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
 *.war
 *.ear
 
@@ -41,4 +16,3 @@ nbproject
 build.xml
 manifest.mf
 /build/
->>>>>>> 358877822391bae0085753448a5b2a5651739196

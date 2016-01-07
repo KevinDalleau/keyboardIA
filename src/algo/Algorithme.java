@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.Observable;
 
 public abstract class Algorithme extends Observable{
-    protected Keyboard resultat;
+    private Keyboard resultat;
     protected HashMap<String,Number> parametres;
     protected HashMap<String, Number> donnees;
     public Algorithme(){
- 
+                
         this.parametres = new HashMap<>();
         this.donnees = new HashMap<>();
         
@@ -61,7 +61,9 @@ public abstract class Algorithme extends Observable{
         this.notifyObservers();
     }
     
-    public void updateResultat(Keyboard k, int coutMinimal){
-        System.out.println(coutMinimal);
+    public void updateResultat(Keyboard k){
+        this.resultat = k;
+        System.out.println(k.getCost());
+        this.update();
     }
 }
