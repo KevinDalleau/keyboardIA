@@ -60,4 +60,8 @@ public abstract class Algorithme extends Observable{
         this.setChanged();
         this.notifyObservers();
     }
+    
+    public void updateResultat(Keyboard k, int coutMinimal){
+        System.out.println(coutMinimal);
+    }
 }
