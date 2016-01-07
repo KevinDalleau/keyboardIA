@@ -38,10 +38,12 @@ public class Fenetre extends JFrame {
     
     public void setAlgo(Algorithme algo){
         this.algo = algo;
-        //TODO UPDATE
+        this.parametres.setParametres(algo.getParametres());
         this.algo.addObserver(this.clavier);
         this.algo.addObserver(this.donnees);
         this.algo.update();
+        this.repaint();
+        this.pack();
     };
     
     public void launch(){
