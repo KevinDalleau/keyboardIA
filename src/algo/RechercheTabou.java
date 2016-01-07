@@ -45,9 +45,10 @@ public class RechercheTabou extends Algorithme {
 				tabuList.removeFirst();
 			}
 			System.out.println(sBestCost);
-			
+			this.updateResultat(sBest);
 			iteration++;
 		}
+		this.setDonnee("Coût final", bestCost);
 		return sBest;
 	}
 	
