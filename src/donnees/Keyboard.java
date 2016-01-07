@@ -64,8 +64,7 @@ public class Keyboard {
 		return index;
 	}
 
-	public double getCostBinary(int a, int b) { //Calculate the cost between two indexes of letters. a and b : positions on the 4*10 keyboard
-		Bigramme bigramme = new Bigramme();
+	public double getCostBinary(Bigramme bigramme,int a, int b) { //Calculate the cost between two indexes of letters. a and b : positions on the 4*10 keyboard
 		int aLetter = this.getLetter(a)-65;
 		int bLetter = this.getLetter(b)-65;
 		int freq = bigramme.frequence(aLetter, bLetter);
@@ -75,14 +74,14 @@ public class Keyboard {
 		return cost;
 	}
 	
-	public double getCost() {
+	public double getCost(Bigramme bigramme) {
 		char[] clavier = this.clavier;
 		int cost = 0;
 		for(int i=0; i < 40;i++) {
 			if(!(clavier[i]==0)) {
 				for(int j=0; j<40;j++) {
 					if(!(clavier[j]==0) && i!=j) {
-						cost += this.getCostBinary(i,j);
+						cost += this.getCostBinary(bigramme,i,j);
 					}
 				}
 			}
