@@ -24,11 +24,12 @@ public class AlgoRandom extends Algorithme{
             //on met a jour le meilleur individu (a afficher)
             Keyboard meilleurResultat = this.getResultat();
             double coutMinimal = meilleurResultat == null ? 999999999 : meilleurResultat.getCost();
-            for(int i = 0; i < kl.size(); i ++){
-                double cout = kl.get(i).getCost();
-                if(cout < coutMinimal){
+
+            for (Keyboard k : kl) {
+                double cout = k.getCost();
+                if (coutMinimal >= cout) {
                     coutMinimal = cout;
-                    meilleurResultat = kl.get(i);
+                    meilleurResultat = k;
                 }
             }
             this.updateResultat(meilleurResultat);
@@ -41,7 +42,7 @@ public class AlgoRandom extends Algorithme{
         super.configure();
         //on met les parametres, les donnees et leurs valeurs par defaut
         this.parametres.put("Taille population", 10);
-        this.parametres.put("Itérations", 100);
+        this.parametres.put("Itérations", 1000);
     }
 
     @Override

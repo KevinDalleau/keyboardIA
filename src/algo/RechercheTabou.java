@@ -108,14 +108,14 @@ public class RechercheTabou extends Algorithme {
 	@Override
 	public void configure() {
                 super.configure();
-		this.parametres.put("Iterations",10000.0);
-		this.parametres.put("Taille_liste_taboue",4000.0);		
+		this.parametres.put("Iterations",10000);
+		this.parametres.put("Taille_liste_taboue",1000);		
 	}
 
 	@Override
 	protected void launch() {
-            this.setSizeTabuList((double)this.getParametre("Taille_liste_taboue"));
-            this.setNumberOfLoops((double)this.getParametre("Taille_liste_taboue"));
+            this.setSizeTabuList((int)this.getParametre("Taille_liste_taboue"));
+            this.setNumberOfLoops((int)this.getParametre("Taille_liste_taboue"));
             this.compute();
     	}
 

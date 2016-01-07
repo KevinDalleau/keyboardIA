@@ -66,8 +66,8 @@ public class Keyboard implements Cloneable {
 	}
 
 	public double getCostBinary(int a, int b) { //Calculate the cost between two indexes of letters. a and b : positions on the 4*10 keyboard
-		int aLetter = this.getLetter(a)-65;
-		int bLetter = this.getLetter(b)-65;
+		int aLetter = this.getLetter(a)-'A';
+		int bLetter = this.getLetter(b)-'A';
 		int freq = Main.bigramme.frequence(aLetter, bLetter);
 		double distance = getDistance(a,b);
 		double cost = freq*distance;

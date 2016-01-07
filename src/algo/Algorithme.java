@@ -13,12 +13,11 @@ public abstract class Algorithme extends Observable{
     private ArrayList<Double> couts;
     
     public Algorithme(){
-                
         this.parametres = new HashMap<>();
         this.donnees = new HashMap<>();
-        
         this.configure();
     }
+    
     public void configure(){
         this.donnees.put("Temps de calcul (ms)", 0);
         this.donnees.put("Meilleur coût obtenu", 0.0);
