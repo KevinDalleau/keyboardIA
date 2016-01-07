@@ -1,13 +1,17 @@
 package algo;
 
 import donnees.Keyboard;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Observable;
 
 public abstract class Algorithme extends Observable{
     private Keyboard resultat;
     protected HashMap<String,Number> parametres;
     protected HashMap<String, Number> donnees;
+    private ArrayList<Double> couts;
+    
     public Algorithme(){
                 
         this.parametres = new HashMap<>();
@@ -33,6 +37,7 @@ public abstract class Algorithme extends Observable{
     protected abstract void launch();
     
     public void resoudre(){
+        this.couts = new ArrayList<>();
         this.launch();
         this.setChanged();
         this.notifyObservers();
@@ -63,7 +68,11 @@ public abstract class Algorithme extends Observable{
     
     public void updateResultat(Keyboard k){
         this.resultat = k;
-        System.out.println(k.getCost());
+        this.couts.add(k.getCost());
         this.update();
+    }
+    
+    public List<Double> getCouts(){
+        return this.couts;
     }
 }

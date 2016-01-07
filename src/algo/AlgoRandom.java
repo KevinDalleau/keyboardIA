@@ -24,7 +24,7 @@ public class AlgoRandom extends Algorithme{
 
             //on met a jour le meilleur individu (a afficher)
             Keyboard meilleurResultat = this.getResultat();
-            double coutMinimal = meilleurResultat.getCost();
+            double coutMinimal = meilleurResultat == null ? 999999999 : meilleurResultat.getCost();
             for(int i = 0; i < kl.size(); i ++){
                 double cout = kl.get(i).getCost();
                 if(cout < coutMinimal){

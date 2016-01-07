@@ -3,9 +3,9 @@ package gui;
 import algo.Algorithme;
 import commun.Main;
 import java.awt.BorderLayout;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import javax.swing.BoxLayout;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
@@ -13,9 +13,8 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.DefaultXYDataset;
-import org.jfree.data.xy.XYDataset;
 
-public class Fenetre extends JFrame {
+public class Fenetre extends JFrame implements Observer{
     private Algorithme algo;
     
     private Clavier clavier;
@@ -23,6 +22,7 @@ public class Fenetre extends JFrame {
     private Parametres parametres;
     private Boutons boutons;
     private ChartPanel graphique;
+    private DefaultXYDataset ds;
     
     public Fenetre(){
         super("Disposition Clavier DKN");
@@ -33,14 +33,12 @@ public class Fenetre extends JFrame {
         this.boutons = new Boutons(this);
         JPanel rightPanel = new JPanel();
         rightPanel.setLayout(new GridLayout(2, 1));
-        DefaultXYDataset ds = new DefaultXYDataset();
-        double[][] data = { {0}, {0}};
-        ds.addSeries("Coût", data);
+        this.ds = new DefaultXYDataset();
         JFreeChart j = ChartFactory.createXYLineChart("Évolution du coût",
                 "Itérations", "Distance cumulée", ds, PlotOrientation.VERTICAL, true, true,
                 false);
         this.graphique = new ChartPanel(j);
-                
+
         this.setLayout(new BorderLayout());
         
         this.add(this.graphique, BorderLayout.CENTER);
@@ -62,6 +60,7 @@ public class Fenetre extends JFrame {
     public void setAlgo(Algorithme algo){
         this.algo = algo;
         this.parametres.setParametres(algo.getParametres());
+        this.algo.addObserver(this);
         this.algo.addObserver(this.clavier);
         this.algo.addObserver(this.donnees);
         this.algo.update();
@@ -71,5 +70,18 @@ public class Fenetre extends JFrame {
     
     public void launch(){
         this.algo.resoudre();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        Algorithme a = (Algorithme) o;
+        if(a.getCouts() != null){
+            double[][] data = new double[2][a.getCouts().size()];
+            for(int i = 0; i < a.getCouts().size(); i ++){
+                data[0][i] = i;
+                data[1][i] = a.getCouts().get(i);
+            }
+            this.ds.addSeries(a.getNom(), data);
+        }
     }
 }
