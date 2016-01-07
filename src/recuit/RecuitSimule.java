@@ -8,6 +8,7 @@ import donnees.Keyboard;
 public class RecuitSimule extends Algorithme{
 	private double Tmax;
 	private double Emax;
+	private double finalCost;
 	private Bigramme Bigramme;
 	
 	public RecuitSimule(Bigramme bigramme){
@@ -44,7 +45,7 @@ public class RecuitSimule extends Algorithme{
 			t++;
 			
 		}
-		System.out.println(bestEnergy);
+		this.setDonnee("Coüt final", bestEnergy);
 		return bestSol;
 	}
 
