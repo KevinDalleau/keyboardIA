@@ -1,4 +1,4 @@
-package commun;
+package algo;
 
 import donnees.Keyboard;
 import java.util.HashMap;

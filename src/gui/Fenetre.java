@@ -1,6 +1,6 @@
 package gui;
 
-import commun.Algorithme;
+import algo.Algorithme;
 import commun.Main;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;

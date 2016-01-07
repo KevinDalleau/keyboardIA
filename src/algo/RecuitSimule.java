@@ -1,6 +1,5 @@
-package recuit;
+package algo;
 
-import commun.Algorithme;
 import commun.Helpers;
 import donnees.Bigramme;
 import donnees.Keyboard;
@@ -9,12 +8,10 @@ public class RecuitSimule extends Algorithme{
 	private double Tmax;
 	private double Emax;
 	private double finalCost;
-	private Bigramme Bigramme;
 	
-	public RecuitSimule(Bigramme bigramme){
+	public RecuitSimule(){
 		this.Tmax = 1000;
 		this.Emax = 100;
-		this.Bigramme = bigramme;
 	}
 
 	public RecuitSimule(double tmax,double emax){
@@ -26,14 +23,14 @@ public class RecuitSimule extends Algorithme{
 		Keyboard firstSol = Keyboard.GenerateFirstSol();
                 Keyboard bestSol = new Keyboard();
 		bestSol.copy(firstSol);
-		int energy = (int) firstSol.getCost(Bigramme);
+		int energy = (int) firstSol.getCost();
 		int bestEnergy = energy;
 		int t = 0;
 		while(t<Tmax && energy>Emax ){
 			double T = t/Tmax;
 			Keyboard newkey = this.generateNeighbor(firstSol);
 			//newEnergy
-			int newEnergy = (int) newkey.getCost(Bigramme);
+			int newEnergy = (int) newkey.getCost();
 			if(this.acceptanceProbability(energy, newEnergy, T)>Math.random()){
 				firstSol.copy(newkey);
 				energy = newEnergy;

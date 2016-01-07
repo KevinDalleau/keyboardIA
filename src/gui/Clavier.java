@@ -1,6 +1,6 @@
 package gui;
 
-import commun.Algorithme;
+import algo.Algorithme;
 import donnees.Keyboard;
 import java.awt.Dimension;
 import java.awt.Font;

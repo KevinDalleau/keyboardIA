@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import commun.Helpers;
+import commun.Main;
 
 public class Keyboard implements Cloneable {
 	private char[] clavier;
@@ -64,24 +65,23 @@ public class Keyboard implements Cloneable {
 		return index;
 	}
 
-	public double getCostBinary(Bigramme bigramme,int a, int b) { //Calculate the cost between two indexes of letters. a and b : positions on the 4*10 keyboard
+	public double getCostBinary(int a, int b) { //Calculate the cost between two indexes of letters. a and b : positions on the 4*10 keyboard
 		int aLetter = this.getLetter(a)-65;
 		int bLetter = this.getLetter(b)-65;
-		int freq = bigramme.frequence(aLetter, bLetter);
+		int freq = Main.bigramme.frequence(aLetter, bLetter);
 		double distance = getDistance(a,b);
 		double cost = freq*distance;
 
 		return cost;
 	}
 	
-	public double getCost(Bigramme bigramme) {
-		char[] clavier = this.clavier;
+	public double getCost() {
 		int cost = 0;
 		for(int i=0; i < 40;i++) {
 			if(!(clavier[i]==0)) {
 				for(int j=0; j<40;j++) {
 					if(!(clavier[j]==0) && i!=j) {
-						cost += this.getCostBinary(bigramme,i,j);
+						cost += this.getCostBinary(i,j);
 					}
 				}
 			}
