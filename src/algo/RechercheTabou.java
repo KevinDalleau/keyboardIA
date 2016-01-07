@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import commun.Helpers;
+
 import donnees.Keyboard;
 
 public class RechercheTabou extends Algorithme {
@@ -15,30 +17,56 @@ public class RechercheTabou extends Algorithme {
 	
 	public RechercheTabou() {
 		this.tabuList = new LinkedList<Keyboard>();
-		this.numberOfLoops = 10000;
+		this.numberOfLoops = 100;
 		this.sizeTabuList = 4000;
+	}
+	
+	public ArrayList<Keyboard> generateNeighbor(Keyboard key){
+		ArrayList<Keyboard> neighborhood = new ArrayList<Keyboard>();
+		int array[] = new int[40];
+		for(int i=0;i<40;i++){
+			array[i]=i;
+		}
+		boolean done = false;
+		int count = 0;
+		Keyboard keyb = new Keyboard();
+		keyb.copy(key);
+		int[] rand ;
+		do{
+			rand = Helpers.pickNRandom(array, 2);
+			done = keyb.swap(rand[0], rand[1]);
+			if(done) {
+				neighborhood.add(keyb);
+				count++;
+			}
+		}while(count != 4);
+		return neighborhood;
 	}
 	
 	public Keyboard compute() {
 		int iteration = 0;
 		Keyboard s0 = GenerateFirstSol();
-		Keyboard s = s0;
-		Keyboard sBest = s;
-		double bestCost = s.getCost();
+		Keyboard s = new Keyboard();
+		s.copy(s0);
+		Keyboard sBest = new Keyboard();
+		sBest.copy(s0);
+		double bestCost = s0.getCost();
 		LinkedList<Keyboard> tabuList = new LinkedList<Keyboard>();
 		while(iteration < this.numberOfLoops) { 
 			Keyboard bestCandidate = new Keyboard();
 			double sBestCost = sBest.getCost();
-			for(Keyboard k : s.getNeighborhood()) {
-				double kCost = k.getCost();
+			s.display();
+			for(Keyboard k : this.generateNeighbor(s)) {
+				System.out.println("Generated keyboards (by swap)");
 				k.display();
-				if(kCost > bestCost && !tabuList.contains(k)) {
-					bestCandidate = k;
+				double kCost = k.getCost();
+				if(kCost < bestCost && !tabuList.contains(k)) {
+					bestCandidate.copy(k);
 				}
 			}
-			s = bestCandidate;
-			if(bestCandidate.getCost() > sBestCost) {
-				sBest = bestCandidate;
+			s.copy(bestCandidate);
+			if(bestCandidate.getCost() < sBestCost) {
+				sBest.copy(bestCandidate);
 			}
 			tabuList.add(bestCandidate);
 			if(tabuList.size()>1000) {
