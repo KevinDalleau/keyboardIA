@@ -17,7 +17,7 @@ public class RechercheTabou extends Algorithme {
 	
 	public RechercheTabou() {
 		this.tabuList = new LinkedList<Keyboard>();
-		this.numberOfLoops = 100;
+		this.numberOfLoops = 10000;
 		this.sizeTabuList = 4000;
 	}
 	
@@ -45,37 +45,39 @@ public class RechercheTabou extends Algorithme {
 	
 	public Keyboard compute() {
 		int iteration = 0;
-		Keyboard s0 = GenerateFirstSol();
-		Keyboard s = new Keyboard();
-		s.copy(s0);
+		Keyboard s = GenerateFirstSol();
 		Keyboard sBest = new Keyboard();
-		sBest.copy(s0);
-		double bestCost = s0.getCost();
+		sBest.copy(s);
 		LinkedList<Keyboard> tabuList = new LinkedList<Keyboard>();
 		while(iteration < this.numberOfLoops) { 
 			Keyboard bestCandidate = new Keyboard();
-			double sBestCost = sBest.getCost();
 			s.display();
-			for(Keyboard k : this.generateNeighbor(s)) {
-				System.out.println("Generated keyboards (by swap)");
-				k.display();
-				double kCost = k.getCost();
-				if(kCost < bestCost && !tabuList.contains(k)) {
+			for(Keyboard k : s.getNeighborhood()) {
+				double bestCandidateCost;
+				if(bestCandidate.getCost() == 0) {
+					bestCandidateCost = 1000000000;
+				}
+				else {
+					bestCandidateCost = bestCandidate.getCost();
+				}
+				
+				if(k.getCost() < bestCandidateCost && !tabuList.contains(k)) {
 					bestCandidate.copy(k);
 				}
 			}
 			s.copy(bestCandidate);
-			if(bestCandidate.getCost() < sBestCost) {
+			if(bestCandidate.getCost() < sBest.getCost()) {
 				sBest.copy(bestCandidate);
 			}
 			tabuList.add(bestCandidate);
-			if(tabuList.size()>1000) {
+			if(tabuList.size()>sizeTabuList) {
 				tabuList.removeFirst();
 			}
-			System.out.println(sBestCost);
+			System.out.println(sBest.getCost());
 			this.updateResultat(sBest);
 			iteration++;
 		}
+		System.out.println(tabuList.size());
 		return sBest;
 	}
 	
@@ -137,13 +139,13 @@ public class RechercheTabou extends Algorithme {
 	public void configure() {
                 super.configure();
 		this.parametres.put("Iterations",10000);
-		this.parametres.put("Taille_liste_taboue",1000);		
+		this.parametres.put("Taille_liste_taboue",10000);		
 	}
 
 	@Override
 	protected void launch() {
             this.setSizeTabuList((int)this.getParametre("Taille_liste_taboue"));
-            this.setNumberOfLoops((int)this.getParametre("Taille_liste_taboue"));
+            this.setNumberOfLoops((int)this.getParametre("Iterations"));
             this.compute();
     	}
 
