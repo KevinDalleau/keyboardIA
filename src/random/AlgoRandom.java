@@ -41,4 +41,9 @@ public class AlgoRandom extends Algorithme{
         this.donnees.put("Duree", 0);
     }
 
+    @Override
+    public String getNom() {
+        return "Clavier Aléatoire";
+    }
+
 }

@@ -32,4 +32,6 @@ public abstract class Algorithme extends Observable{
         this.setChanged();
         this.notifyObservers();
     }
+    
+    public abstract String getNom();
 }
