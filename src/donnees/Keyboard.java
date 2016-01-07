@@ -1,5 +1,8 @@
 package donnees;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import commun.Helpers;
 
 public class Keyboard {
@@ -95,5 +98,54 @@ public class Keyboard {
 			this.clavier[i] = key.clavier[i];
 		}
 	}
+	
+	public ArrayList<Keyboard> getNeighborhood() { //Retrieves 8 keyboards, corresponding to 8 swaps from a random position on the original keyboard and its neighbors
+		Keyboard k1 = new Keyboard();
+		Keyboard k2 = new Keyboard();
+		Keyboard k3 = new Keyboard();
+		Keyboard k4 = new Keyboard();
+		ArrayList<Keyboard> neighborhoodList = new ArrayList<Keyboard>();
+		try {
+			k1 = (Keyboard) this.clone();
+			k2 = (Keyboard) this.clone();
+			k3 = (Keyboard) this.clone();
+			k4 = (Keyboard) this.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Random random = new Random();
+		int pos;
+		int i = 0;
+		while(((pos = random.nextInt(40)) != ' ') && i < 1) { //Attention, le reste du code est très sale
+			System.out.println(pos);
+			if(pos%10 != 0) { // Si on n'est pas sur le bord gauche, on swappe avec la lettre à gauche
+				System.out.println("Gauche"+pos);
+				k1.swap(pos, pos-1);
+			}
+			if(pos/10>1) { // Si on n'est pas sur le bord haut, on swappe avec la lettre en haut
+				System.out.println("Haut"+pos);
+				k2.swap(pos, pos-10);
+			}
+			if(pos%10!=9) { // Si on n'est pas sur le bord droit, on swappe avec la lettre à droite
+				System.out.println("Droit"+pos);
+				k3.swap(pos, pos+1);
+			}
+			if(pos/10<3){ // Si on n'est pas sur le bord bas, on swappe avec la lettre en bas
+				System.out.println("Bas"+pos);
+				k4.swap(pos, pos+10);
+			}
+			i++;
+		}
+		neighborhoodList.add(k1);
+		neighborhoodList.add(k2);
+		neighborhoodList.add(k3);
+		neighborhoodList.add(k4);
+		
+		return neighborhoodList;
+		
+	}
+
+
 
 }
