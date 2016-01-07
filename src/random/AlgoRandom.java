@@ -2,6 +2,7 @@ package random;
 
 import commun.Algorithme;
 import donnees.Keyboard;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlgoRandom extends Algorithme{
@@ -13,6 +14,7 @@ public class AlgoRandom extends Algorithme{
         int taille = (int) this.getParametre("Taille population");
        
         //on applique l'algo
+        this.kl = new ArrayList<>();
         double temps = System.currentTimeMillis();
         for(int i = 0; i < taille; i ++){
             kl.add(Keyboard.GenerateFirstSol());

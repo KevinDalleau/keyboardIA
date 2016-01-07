@@ -33,5 +33,13 @@ public abstract class Algorithme extends Observable{
         this.notifyObservers();
     }
     
+    public String toString(){
+        return this.getNom();
+    }
+    
     public abstract String getNom();
+    
+    public Keyboard getResultat(){
+        return this.resultat;
+    }
 }

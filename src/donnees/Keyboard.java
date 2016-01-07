@@ -27,7 +27,11 @@ public class Keyboard {
 	}
 
 	public void setCharAt(char a,int x){
-		this.clavier[x] = a;
+            this.clavier[x] = a;
+	}
+        
+        public char getCharAt(int x){
+            return this.clavier[x];
 	}
 
 	public void display(){
