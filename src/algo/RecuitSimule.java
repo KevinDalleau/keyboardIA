@@ -1,7 +1,6 @@
 package algo;
 
 import commun.Helpers;
-import donnees.Bigramme;
 import donnees.Keyboard;
 
 public class RecuitSimule extends Algorithme{
@@ -42,7 +41,6 @@ public class RecuitSimule extends Algorithme{
 			t++;
                         this.updateResultat(bestSol);
 		}
-		this.setDonnee("Coût final", bestEnergy);
 	}
 
 	public Keyboard generateNeighbor(Keyboard key){
@@ -70,21 +68,16 @@ public class RecuitSimule extends Algorithme{
 
 	@Override
 	public void configure() {
+                super.configure();
 		this.parametres.put("Temperature",1000.0);
 		this.parametres.put("Energy",0.0);
-		this.donnees.put("Duree", 0);
-                this.donnees.put("Coût final", 0);
 	}
 
 	@Override
 	protected void launch() {
             this.setTmax((double)this.getParametre("Temperature"));
             this.setEmax((double)this.getParametre("Energy"));
-            double temps = System.currentTimeMillis();
             this.Compute();
-	    temps = System.currentTimeMillis() - temps;
-	     
-	     this.setDonnee("Duree", temps);
 	}
 
 	public double getTmax() {

@@ -15,7 +15,6 @@ public class AlgoRandom extends Algorithme{
         int iterations = (int) this.getParametre("Itérations");
         
         //on applique l'algo
-        double temps = System.currentTimeMillis();
         for(int iter = 0; iter < iterations; iter ++){
             this.kl = new ArrayList<>();
             for(int i = 0; i < taille; i ++){
@@ -34,18 +33,15 @@ public class AlgoRandom extends Algorithme{
             }
             this.updateResultat(meilleurResultat);
         }
-        //on actualise les donnees a afficher
-        temps = System.currentTimeMillis() - temps;
-        this.setDonnee("Duree (ms)", temps);
-        
+        //on actualise les donnees a afficher        
     }
 
     @Override
     public void configure() {
+        super.configure();
         //on met les parametres, les donnees et leurs valeurs par defaut
         this.parametres.put("Taille population", 10);
         this.parametres.put("Itérations", 100);
-        this.donnees.put("Duree (ms)", 0);
     }
 
     @Override

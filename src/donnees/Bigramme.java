@@ -7,8 +7,10 @@ import java.util.Scanner;
 public class Bigramme {
     private final static String donnees = "freq.txt";
     private HashMap<CoupleEntiers, Integer> frequences;
+    private int sommeFreq;
     public Bigramme(){
         frequences = new HashMap<>();
+        sommeFreq = 0;
         try (
             FileReader fr = new FileReader(donnees);
             Scanner sc = new Scanner (fr);
@@ -18,6 +20,7 @@ public class Bigramme {
                 if(sc.hasNextInt()){
                     int frequence = sc.nextInt();
                     frequences.put(new CoupleEntiers(i/26, i%26), frequence); 
+                    sommeFreq += frequence;
                     i ++;
                 } else {
                     sc.next();
@@ -30,7 +33,10 @@ public class Bigramme {
             e.printStackTrace();
         }   
     }
-    protected int frequence(int i, int j){
+    public int frequence(int i, int j){
         return this.frequences.get(new CoupleEntiers(i,j));
+    }
+    public int getSommeFreq(){
+        return this.sommeFreq;
     }
 }

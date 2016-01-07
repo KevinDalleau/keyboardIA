@@ -88,7 +88,7 @@ public class Keyboard implements Cloneable {
 		}
 		//System.out.println(cost);
 
-		return cost;
+		return ((double) cost) / Main.bigramme.getSommeFreq();
 	}
 
 	public double getDistance(double a, double b) {

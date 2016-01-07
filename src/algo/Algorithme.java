@@ -19,7 +19,11 @@ public abstract class Algorithme extends Observable{
         
         this.configure();
     }
-    public abstract void configure();
+    public void configure(){
+        this.donnees.put("Temps de calcul (ms)", 0);
+        this.donnees.put("Meilleur coût obtenu", 0.0);
+    }
+    
     public Number getParametre(String s){
         if(!this.parametres.containsKey(s)){
             throw new Error("Paramètre inexistant");
@@ -38,7 +42,11 @@ public abstract class Algorithme extends Observable{
     
     public void resoudre(){
         this.couts = new ArrayList<>();
+        double time = System.currentTimeMillis();
         this.launch();
+        time = System.currentTimeMillis() - time;
+        this.setDonnee("Temps de calcul (ms)", time);
+        this.setDonnee("Meilleur coût obtenu", this.resultat.getCost());
         this.setChanged();
         this.notifyObservers();
     }
