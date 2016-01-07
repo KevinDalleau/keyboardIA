@@ -139,7 +139,7 @@ public class RechercheTabou extends Algorithme {
 	public void configure() {
                 super.configure();
 		this.parametres.put("Iterations",10000);
-		this.parametres.put("Taille_liste_taboue",10000);		
+		this.parametres.put("Taille_liste_taboue",40);		
 	}
 
 	@Override
