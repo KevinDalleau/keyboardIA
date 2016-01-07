@@ -3,6 +3,7 @@ package gui;
 import algo.Algorithme;
 import commun.Main;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
@@ -32,22 +33,27 @@ public class Fenetre extends JFrame implements Observer{
         this.parametres = new Parametres();
         this.boutons = new Boutons(this);
         JPanel rightPanel = new JPanel();
+        JPanel resultsPanel = new JPanel();
+        
         rightPanel.setLayout(new GridLayout(2, 1));
         this.ds = new DefaultXYDataset();
         JFreeChart j = ChartFactory.createXYLineChart("Évolution du coût",
                 "Itérations", "Distance cumulée", ds, PlotOrientation.VERTICAL, true, true,
                 false);
         this.graphique = new ChartPanel(j);
+        this.graphique.setPreferredSize(new Dimension(400,400));
 
-        this.setLayout(new BorderLayout());
-        
-        this.add(this.graphique, BorderLayout.CENTER);
-        this.add(rightPanel, BorderLayout.EAST);
-        rightPanel.add(this.clavier);
-        rightPanel.add(this.donnees);
-        
-        this.add(this.parametres, BorderLayout.NORTH);
-        this.add(this.boutons, BorderLayout.SOUTH);
+        this.setLayout(new GridLayout(1,2));
+        this.add(this.graphique);
+        this.add(rightPanel);
+                
+        rightPanel.setLayout(new BorderLayout());
+        rightPanel.add(resultsPanel, BorderLayout.CENTER);
+            resultsPanel.setLayout(new GridLayout(2,1));
+            resultsPanel.add(this.clavier);
+            resultsPanel.add(this.donnees);
+        rightPanel.add(this.parametres, BorderLayout.NORTH);
+        rightPanel.add(this.boutons, BorderLayout.SOUTH);
         
         this.setAlgo(Main.algorithmes.get(0));
                

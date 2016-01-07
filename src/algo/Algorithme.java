@@ -69,7 +69,6 @@ public abstract class Algorithme extends Observable{
     public void updateResultat(Keyboard k){
         this.resultat = k;
         this.couts.add(k.getCost());
-        this.update();
     }
     
     public List<Double> getCouts(){
