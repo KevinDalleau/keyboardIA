@@ -1,10 +1,8 @@
 package recuit;
 
-import java.util.List;
-import java.util.Observer;
-
 import commun.Algorithme;
 import commun.Helpers;
+
 import donnees.Keyboard;
 
 public class RecuitSimule extends Algorithme{
@@ -71,15 +69,13 @@ public class RecuitSimule extends Algorithme{
 
 	@Override
 	public void configure() {
-		// TODO Auto-generated method stub
-		this.parametres.put("Temperature",100);
-		this.parametres.put("Energy",500000);
+		this.parametres.put("Temperature",100.0);
+		this.parametres.put("Energy",500000.0);
 		this.donnees.put("Duree", 0);
 	}
 
 	@Override
 	protected void launch() {
-		// TODO Auto-generated method stub
 		this.setTmax((double)this.getParametre("Temperature"));
 		this.setEmax((double)this.getParametre("Energy"));
 		 double temps = System.currentTimeMillis();
@@ -103,6 +99,11 @@ public class RecuitSimule extends Algorithme{
 
 	public void setEmax(double emax) {
 		this.emax = emax;
+	}
+
+	@Override
+	public String getNom() {
+		return "Recuit simulé";
 	}
 	
 	
