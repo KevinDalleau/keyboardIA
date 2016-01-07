@@ -1,10 +1,13 @@
 package recuit;
 
-import commun.Helpers;
+import java.util.List;
+import java.util.Observer;
 
+import commun.Algorithme;
+import commun.Helpers;
 import donnees.Keyboard;
 
-public class RecuitSimule {
+public class RecuitSimule extends Algorithme{
 	private double Tmax;
 	private double Tmin;
 	private double Alpha;
@@ -79,5 +82,21 @@ public class RecuitSimule {
 			return 1.0;
 		}
 		return Math.exp((energy - newEnergy) / temperature);
+	}
+
+	@Override
+	public void configure() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void launch() {
+		// TODO Auto-generated method stub
+		 double temps = System.currentTimeMillis();
+		 resultat = this.Compute();
+	     temps = System.currentTimeMillis() - temps;
+	     
+	     this.setParametre("Duree", temps);
 	}
 }	
