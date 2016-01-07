@@ -101,10 +101,10 @@ public class RecuitSimule extends Algorithme{
 		this.emax = emax;
 	}
 
-	@Override
-	public String getNom() {
-		return "Recuit simulé";
-	}
+    @Override
+    public String getNom() {
+        return "Recuit simulÃ©";
+    }
 	
 	
 }	

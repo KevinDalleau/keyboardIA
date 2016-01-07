@@ -4,6 +4,8 @@ import commun.Algorithme;
 import commun.Main;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -24,11 +26,13 @@ public class Boutons extends JPanel {
             this.algo.addItem(a);
         }
         
-        this.launch.addActionListener(new ActionListener(){
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               Boutons.this.fenetre.launch();
+        this.launch.addActionListener((ActionEvent e) -> {
+            Boutons.this.fenetre.launch();
+        });
+        
+        this.algo.addItemListener((ItemEvent e) -> {
+            if(e.getStateChange() == ItemEvent.SELECTED){
+                Boutons.this.fenetre.setAlgo((Algorithme) e.getItem());
             }
         });
         
