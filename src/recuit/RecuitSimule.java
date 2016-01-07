@@ -1,34 +1,22 @@
 package recuit;
 
-import commun.Helpers;
+import java.util.List;
+import java.util.Observer;
 
+import commun.Algorithme;
+import commun.Helpers;
 import donnees.Keyboard;
 
-public class RecuitSimule {
+public class RecuitSimule extends Algorithme{
 	private double Tmax;
-	private double Tmin;
-	private double Alpha;
-	private double Nbt;
-	private double Nbi;
 	private double emax;
-	private Keyboard finalSolution;
-
-
 	public RecuitSimule(){
 		this.Tmax = 1000;
-		this.Tmin = 0.0001;
-		this.Alpha = 0.9;
-		this.Nbt = 50;
-		this.Nbi = 10; 
 		this.emax = 100;
 	}
 
 	public RecuitSimule(double tmax, double tmin, double alpha,double nbt,double nbi){
 		this.Tmax = tmax;
-		this.Tmin = tmin;
-		this.Alpha = alpha;
-		this.Nbt = nbt;
-		this.Nbi = nbi;
 	}
 
 	public Keyboard Compute(){
@@ -80,4 +68,42 @@ public class RecuitSimule {
 		}
 		return Math.exp((energy - newEnergy) / temperature);
 	}
+
+	@Override
+	public void configure() {
+		// TODO Auto-generated method stub
+		this.parametres.put("Temperature",100);
+		this.parametres.put("Energy",500000);
+		this.donnees.put("Duree", 0);
+	}
+
+	@Override
+	protected void launch() {
+		// TODO Auto-generated method stub
+		this.setTmax((double)this.getParametre("Temperature"));
+		this.setEmax((double)this.getParametre("Energy"));
+		 double temps = System.currentTimeMillis();
+		 resultat = this.Compute();
+	     temps = System.currentTimeMillis() - temps;
+	     
+	     this.setParametre("Duree", temps);
+	}
+
+	public double getTmax() {
+		return Tmax;
+	}
+
+	public void setTmax(double tmax) {
+		Tmax = tmax;
+	}
+
+	public double getEmax() {
+		return emax;
+	}
+
+	public void setEmax(double emax) {
+		this.emax = emax;
+	}
+	
+	
 }	
