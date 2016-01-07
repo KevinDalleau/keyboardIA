@@ -41,6 +41,7 @@ public class Fenetre extends JFrame {
         //TODO UPDATE
         this.algo.addObserver(this.clavier);
         this.algo.addObserver(this.donnees);
+        this.algo.update();
     };
     
     public void launch(){

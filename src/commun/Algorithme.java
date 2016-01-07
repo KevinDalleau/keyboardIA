@@ -17,13 +17,15 @@ public abstract class Algorithme extends Observable{
     }
     public abstract void configure();
     public Number getParametre(String s){
+        if(!this.parametres.containsKey(s)){
+            throw new Error("Paramètre inexistant");
+        }
         return this.parametres.get(s);
     }
-    public void setParametre(String s, Number n){
-        this.parametres.put(s, n);
-    }
     public void setDonnee(String s, Number n){
-        System.out.println(n);
+        if(!this.donnees.containsKey(s)){
+            throw new Error("Donnée inexistante");
+        }
         this.donnees.put(s, n);
         this.setChanged();
         this.notifyObservers();
@@ -52,5 +54,10 @@ public abstract class Algorithme extends Observable{
     
     public HashMap<String,Number> getDonnees(){
         return this.donnees;
+    }
+    
+    public void update(){
+        this.setChanged();
+        this.notifyObservers();
     }
 }
