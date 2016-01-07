@@ -86,7 +86,7 @@ public class RecuitSimule extends Algorithme{
 		 resultat = this.Compute();
 	     temps = System.currentTimeMillis() - temps;
 	     
-	     this.setParametre("Duree", temps);
+	     this.setDonnee("Duree", temps);
 	}
 
 	public double getTmax() {

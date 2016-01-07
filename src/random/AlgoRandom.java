@@ -22,7 +22,7 @@ public class AlgoRandom extends Algorithme{
         temps = System.currentTimeMillis() - temps;
         
         //on actualise les donnees a afficher
-        this.setParametre("Duree", temps);
+        this.setDonnee("Duree (ms)", temps);
         
         //on met a jour le meilleur individu (a afficher)
         double coutMinimal = kl.get(0).getCost();
@@ -40,7 +40,7 @@ public class AlgoRandom extends Algorithme{
     public void configure() {
         //on met les parametres, les donnees et leurs valeurs par defaut
         this.parametres.put("Taille population", 10);
-        this.donnees.put("Duree", 0);
+        this.donnees.put("Duree (ms)", 0);
     }
 
     @Override

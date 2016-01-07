@@ -23,7 +23,10 @@ public abstract class Algorithme extends Observable{
         this.parametres.put(s, n);
     }
     public void setDonnee(String s, Number n){
+        System.out.println(n);
         this.donnees.put(s, n);
+        this.setChanged();
+        this.notifyObservers();
     }
     protected abstract void launch();
     
@@ -41,5 +44,13 @@ public abstract class Algorithme extends Observable{
     
     public Keyboard getResultat(){
         return this.resultat;
+    }
+    
+    public HashMap<String,Number> getParametres(){
+        return this.parametres;
+    }
+    
+    public HashMap<String,Number> getDonnees(){
+        return this.donnees;
     }
 }
