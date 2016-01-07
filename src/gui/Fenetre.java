@@ -28,7 +28,7 @@ public class Fenetre extends JFrame {
         this.add(this.parametres, BorderLayout.NORTH);
         this.add(this.boutons, BorderLayout.SOUTH);
         
-        this.setAlgo(0);
+        this.setAlgo(Main.algorithmes.get(0));
                
         this.pack();
         this.setResizable(false);
@@ -36,8 +36,8 @@ public class Fenetre extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
-    public void setAlgo(int i){
-        this.algo = Main.algorithmes.get(0);
+    public void setAlgo(Algorithme algo){
+        this.algo = algo;
         //TODO UPDATE
         this.algo.addObserver(this.clavier);
     };

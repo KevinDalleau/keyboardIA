@@ -2,7 +2,6 @@ package donnees;
 
 import java.io.FileReader;
 import java.util.HashMap;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Bigramme {

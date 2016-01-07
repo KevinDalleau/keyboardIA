@@ -104,6 +104,11 @@ public class RecuitSimule extends Algorithme{
 	public void setEmax(double emax) {
 		this.emax = emax;
 	}
+
+    @Override
+    public String getNom() {
+        return "Recuit simulé";
+    }
 	
 	
 }	
