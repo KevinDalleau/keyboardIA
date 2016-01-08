@@ -23,7 +23,9 @@ public class RecuitSimule extends Algorithme{
 
 	public void Compute(){
 		Keyboard firstSol = Keyboard.GenerateFirstSol();
-                Keyboard bestSol = new Keyboard();
+        Keyboard bestSol = new Keyboard();
+        int nbcandidats = 1;
+        int loop = 0;
 		bestSol.copy(firstSol);
 		int energy = (int) firstSol.getCost();
 		int bestEnergy = energy;
@@ -34,14 +36,18 @@ public class RecuitSimule extends Algorithme{
 			if(this.acceptanceProbability(energy, newEnergy, Tmax)>Math.random()){
 				firstSol.copy(newkey);
 				energy = newEnergy;
+				nbcandidats++;
 			}
 			if(newEnergy<bestEnergy){
 				bestSol.copy(newkey);
 				bestEnergy = newEnergy;
 			}
 			this.Tmax *= this.Alpha;
+			loop++;
          this.updateResultat(bestSol);
 		}
+		this.donnees.put("Nombre de candidats", nbcandidats);
+		this.donnees.put("Nombre d'itérations", loop);
 	}
 
 	public Keyboard generateNeighbor(Keyboard key){
@@ -71,15 +77,15 @@ public class RecuitSimule extends Algorithme{
 	public void configure() {
                 super.configure();
 		this.parametres.put("Temperature",1000.0);
-		this.parametres.put("Energy",0.0);
-		this.parametres.put("Decay", 0.9);
+		this.parametres.put("Energie",0.0);
+		this.parametres.put("Décroissance", 0.9);
 	}
 
 	@Override
 	protected void launch() {
             this.setTmax((double)this.getParametre("Temperature"));
-            this.setEmax((double)this.getParametre("Energy"));
-            this.setAlpha((double)this.getParametre("Decay"));
+            this.setEmax((double)this.getParametre("Energie"));
+            this.setAlpha((double)this.getParametre("Décroissance"));
             this.Compute();
 	}
 
