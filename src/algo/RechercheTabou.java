@@ -10,14 +10,13 @@ import donnees.Keyboard;
 
 public class RechercheTabou extends Algorithme {
 	private LinkedList<Keyboard> tabuList; //Liste de claviers déjà visités
-	private double numberOfLoops;
-	private double sizeTabuList;
+	private int numberOfLoops;
+	private int sizeTabuList;
+	private int sizeNeighborhood;
 	private Keyboard finalSolution;
 	
 	public RechercheTabou() {
 		this.tabuList = new LinkedList<Keyboard>();
-		this.numberOfLoops = 10000;
-		this.sizeTabuList = 4000;
 	}
 	
 	public ArrayList<Keyboard> generateNeighbor(Keyboard key){
@@ -123,7 +122,7 @@ public class RechercheTabou extends Algorithme {
 		return sizeTabuList;
 	}
 
-	public void setSizeTabuList(double d) {
+	public void setSizeTabuList(int d) {
 		this.sizeTabuList = d;
 	}
 
@@ -138,14 +137,16 @@ public class RechercheTabou extends Algorithme {
 	@Override
 	public void configure() {
                 super.configure();
-		this.parametres.put("Iterations",10000);
+		this.parametres.put("Iterations",1000);
 		this.parametres.put("Taille_liste_taboue",40);		
+		this.parametres.put("Taille_Voisinage", 10);
 	}
 
 	@Override
 	protected void launch() {
             this.setSizeTabuList((int)this.getParametre("Taille_liste_taboue"));
             this.setNumberOfLoops((int)this.getParametre("Iterations"));
+            this.sizeNeighborhood = (int) this.getParametre("Taille_Voisinage");
             this.compute();
     	}
 
@@ -159,7 +160,7 @@ public class RechercheTabou extends Algorithme {
 		return numberOfLoops;
 	}
 
-	public void setNumberOfLoops(double d) {
+	public void setNumberOfLoops(int d) {
 		this.numberOfLoops = d;
 	}
 
