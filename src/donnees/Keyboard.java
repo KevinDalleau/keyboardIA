@@ -145,6 +145,14 @@ public class Keyboard implements Cloneable {
 		
 	}
 	
+	public String toString() {
+		String keyboard = "";
+		for(int i=0;i<40;i++) {
+			keyboard+=this.getCharAt(i);
+		}
+		return keyboard;
+	}
+	
 	
 
 

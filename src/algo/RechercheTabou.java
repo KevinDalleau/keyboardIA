@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import commun.Helpers;
-
 import donnees.Keyboard;
 
 public class RechercheTabou extends Algorithme {
@@ -29,17 +28,18 @@ public class RechercheTabou extends Algorithme {
 		}
 		boolean done = false;
 		int count = 0;
-		Keyboard keyb = new Keyboard();
-		keyb.copy(key);
+		
 		int[] rand ;
 		do{
+			Keyboard keyb = new Keyboard();
+			keyb.copy(key);
 			rand = Helpers.pickNRandom(array, 2);
 			done = keyb.swap(rand[0], rand[1]);
-			if(done) {
+			if(done && !neighborhood.contains(keyb)) {
 				neighborhood.add(keyb);
 				count++;
 			}
-		}while(count != 5);
+		}while(count != 25);
 		return neighborhood;
 	}
 	
@@ -55,7 +55,7 @@ public class RechercheTabou extends Algorithme {
 			for(Keyboard k : this.generateNeighbor(s)) {
 				double bestCandidateCost;
 				if(bestCandidate.getCost() == 0) {
-					bestCandidateCost = 1000000000;
+					bestCandidateCost = 1000000000; 
 				}
 				else {
 					bestCandidateCost = bestCandidate.getCost();
@@ -161,6 +161,32 @@ public class RechercheTabou extends Algorithme {
 
 	public void setNumberOfLoops(double d) {
 		this.numberOfLoops = d;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((finalSolution == null) ? 0 : finalSolution.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(numberOfLoops);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(sizeTabuList);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result
+				+ ((tabuList == null) ? 0 : tabuList.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj.toString() == this.toString()) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	
