@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import commun.Helpers;
 import commun.Main;
 
-public class Keyboard implements Cloneable {
+public class Keyboard implements Cloneable, Comparable {
 	private char[] clavier;
 
 	public Keyboard(){
@@ -119,7 +119,6 @@ public class Keyboard implements Cloneable {
 		int pos;
 		int i = 0;
 		while(((pos = (int)(Math.random() * 40)) != ' ') && i < 1) { //Attention, le reste du code est très sale
-			System.out.println(pos);
 			if(pos%10 != 0) { // Si on n'est pas sur le bord gauche, on swappe avec la lettre à gauche
 				k1.swap(pos, pos-1);
 			}
@@ -152,10 +151,28 @@ public class Keyboard implements Cloneable {
 	}
 	
 	
-
+    public static Keyboard croisement(Keyboard a, Keyboard b){
+        Keyboard k = new Keyboard();
+        int iA = 0, iB = 0;
+        for(int i = 0; i < 26; i ++){
+            while(a.getCharAt(iA) < 'A') iA ++;
+            while(b.getCharAt(iB) < 'A') iB ++;
+            k.setCharAt(a.getCharAt(iA), iB);
+            iA ++;
+            iB ++;
+        }
+        return k;
+    }
+    
     public boolean equals(Object o){
         Keyboard k = (Keyboard) o;
         return k.toString().compareTo(this.toString()) == 0;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Keyboard k = (Keyboard) o;
+        return (int) (this.getCost() - k.getCost());
     }
 
 }

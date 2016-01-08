@@ -1,6 +1,7 @@
 package commun;
 
 
+import algo.AlgoGenetique;
 import algo.Algorithme;
 import gui.Fenetre;
 
@@ -21,6 +22,7 @@ public class Main {
         Main.algorithmes.add(new AlgoRandom());
         Main.algorithmes.add(new RecuitSimule());
         Main.algorithmes.add(new RechercheTabou());
+        Main.algorithmes.add(new AlgoGenetique());
         Fenetre f = new Fenetre();
     }    
 }

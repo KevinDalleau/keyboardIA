@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
@@ -34,6 +36,7 @@ public class Fenetre extends JFrame implements Observer{
         this.boutons = new Boutons(this);
         JPanel rightPanel = new JPanel();
         JPanel resultsPanel = new JPanel();
+        JPanel boxBoutons = new JPanel();
         
         rightPanel.setLayout(new GridLayout(2, 1));
         this.ds = new DefaultXYDataset();
@@ -52,7 +55,11 @@ public class Fenetre extends JFrame implements Observer{
             resultsPanel.setLayout(new GridLayout(2,1));
             resultsPanel.add(this.clavier);
             resultsPanel.add(this.donnees);
-        rightPanel.add(this.parametres, BorderLayout.NORTH);
+        boxBoutons.setLayout(new BoxLayout(boxBoutons, BoxLayout.LINE_AXIS));
+        boxBoutons.add(Box.createHorizontalGlue());
+        boxBoutons.add(this.parametres);
+        boxBoutons.add(Box.createHorizontalGlue());
+        rightPanel.add(boxBoutons, BorderLayout.NORTH);
         rightPanel.add(this.boutons, BorderLayout.SOUTH);
         
         this.setAlgo(Main.algorithmes.get(0));

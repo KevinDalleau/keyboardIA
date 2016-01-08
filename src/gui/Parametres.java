@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.beans.PropertyChangeEvent;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -15,6 +16,7 @@ public class Parametres extends JPanel {
     public void setParametres(HashMap<String, Number> parametres){
         this.removeAll();
         this.parametres = parametres;
+        this.setLayout(new GridLayout(this.parametres.size() + 1,2));
         for(Entry<String, Number> e : this.parametres.entrySet()){
             Component add = this.add(new JLabel(e.getKey()));
             JFormattedTextField j = new JFormattedTextField();

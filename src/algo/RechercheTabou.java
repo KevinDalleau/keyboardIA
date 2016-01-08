@@ -1,9 +1,7 @@
 package algo;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
 
 import commun.Helpers;
 import donnees.Keyboard;
