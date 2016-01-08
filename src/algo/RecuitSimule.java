@@ -46,8 +46,8 @@ public class RecuitSimule extends Algorithme{
 			loop++;
          this.updateResultat(bestSol);
 		}
-		this.donnees.put("Nombre de candidats", nbcandidats);
-		this.donnees.put("Nombre d'it�rations", loop);
+		this.setDonnee("Nombre de candidats acceptés", nbcandidats);
+		this.setDonnee("Nombre d'itérations", loop);
 	}
 
 	public Keyboard generateNeighbor(Keyboard key){
@@ -76,16 +76,18 @@ public class RecuitSimule extends Algorithme{
 	@Override
 	public void configure() {
                 super.configure();
-		this.parametres.put("Temperature",1000.0);
-		this.parametres.put("Energie",0.0);
-		this.parametres.put("D�croissance", 0.9);
+		this.parametres.put("Température",1000.0);
+		this.parametres.put("Énergie",0.0);
+		this.parametres.put("Décroissance", 0.99);
+                this.donnees.put("Nombre de candidats acceptés", 0);
+                this.donnees.put("Nombre d'itérations", 0);
 	}
 
 	@Override
 	protected void launch() {
-            this.setTmax((double)this.getParametre("Temperature"));
-            this.setEmax((double)this.getParametre("Energie"));
-            this.setAlpha((double)this.getParametre("D�croissance"));
+            this.setTmax((double)this.getParametre("Température"));
+            this.setEmax((double)this.getParametre("Énergie"));
+            this.setAlpha((double)this.getParametre("Décroissance"));
             this.Compute();
 	}
 

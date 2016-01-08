@@ -102,7 +102,7 @@ public class Keyboard implements Cloneable {
 		}
 	}
 	
-	public ArrayList<Keyboard> getNeighborhood() { //Retrieves 8 keyboards, corresponding to 8 swaps from a random position on the original keyboard and its neighbors
+	public ArrayList<Keyboard> getNeighborhood() { //Retrieves 4 keyboards, corresponding to 4 swaps from a random position on the original keyboard and its neighbors
 		Keyboard k1 = new Keyboard();
 		Keyboard k2 = new Keyboard();
 		Keyboard k3 = new Keyboard();
@@ -155,6 +155,9 @@ public class Keyboard implements Cloneable {
 	
 	
 
-
+    public boolean equals(Object o){
+        Keyboard k = (Keyboard) o;
+        return k.toString().compareTo(this.toString()) == 0;
+    }
 
 }

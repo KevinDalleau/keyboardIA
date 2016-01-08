@@ -14,10 +14,7 @@ public class RechercheTabou extends Algorithme {
 	private int sizeTabuList;
 	private int sizeNeighborhood;
 	private Keyboard finalSolution;
-	
-	public RechercheTabou() {
-		this.tabuList = new LinkedList<Keyboard>();
-	}
+        private int tabousExclus;
 	
 	public ArrayList<Keyboard> generateNeighbor(Keyboard key){
 		ArrayList<Keyboard> neighborhood = new ArrayList<Keyboard>();
@@ -38,19 +35,17 @@ public class RechercheTabou extends Algorithme {
 				neighborhood.add(keyb);
 				count++;
 			}
-		}while(count != 25);
+		}while(count < this.sizeNeighborhood);
 		return neighborhood;
 	}
 	
 	public Keyboard compute() {
 		int iteration = 0;
-		Keyboard s = GenerateFirstSol();
+		Keyboard s = Keyboard.GenerateFirstSol();
 		Keyboard sBest = new Keyboard();
 		sBest.copy(s);
-		LinkedList<Keyboard> tabuList = new LinkedList<Keyboard>();
 		while(iteration < this.numberOfLoops) { 
 			Keyboard bestCandidate = new Keyboard();
-			s.display();
 			for(Keyboard k : this.generateNeighbor(s)) {
 				double bestCandidateCost;
 				if(bestCandidate.getCost() == 0) {
@@ -58,56 +53,29 @@ public class RechercheTabou extends Algorithme {
 				}
 				else {
 					bestCandidateCost = bestCandidate.getCost();
-				}
-				
-				if(k.getCost() < bestCandidateCost && !tabuList.contains(k)) {
-					bestCandidate.copy(k);
+				}		
+				if(k.getCost() < bestCandidateCost){
+                                    if(!tabuList.contains(k)) {
+                                        bestCandidate.copy(k);
+                                    } else {
+                                        this.tabousExclus ++;
+                                    }
 				}
 			}
 			s.copy(bestCandidate);
 			if(bestCandidate.getCost() < sBest.getCost()) {
+                                sBest = new Keyboard();
 				sBest.copy(bestCandidate);
 			}
-			tabuList.add(bestCandidate);
+                        if(!tabuList.contains(sBest))
+                            tabuList.add(sBest);
 			if(tabuList.size()>sizeTabuList) {
 				tabuList.removeFirst();
 			}
-			System.out.println(sBest.getCost());
 			this.updateResultat(sBest);
 			iteration++;
 		}
-		System.out.println(tabuList.size());
 		return sBest;
-	}
-	
-	public Keyboard GenerateFirstSol(){
-		Keyboard initialSolution = new Keyboard();
-		char[] alphabet = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-		int array[] = new int[40];
-		for(int i=0;i<40;i++){
-			array[i]=i;
-		}
-		int[] picks = this.pickNRandom(array, 26);
-		for(int i=0;i<26;i++){
-			initialSolution.setCharAt(alphabet[i], picks[i]);
-		}
-		return initialSolution;
-	}
-	
-	public int[] pickNRandom(int[] array, int n) {
-
-		List<Integer> list = new ArrayList<Integer>(array.length);
-		for (int i : array){
-			list.add(i);
-		}
-		Collections.shuffle(list);
-
-		int[] answer = new int[n];
-		for (int i = 0; i < n; i++){
-			answer[i] = list.get(i);
-		}
-		return answer;
-
 	}
 
 	public LinkedList<Keyboard> getTabuList() {
@@ -137,17 +105,23 @@ public class RechercheTabou extends Algorithme {
 	@Override
 	public void configure() {
                 super.configure();
-		this.parametres.put("Iterations",1000);
-		this.parametres.put("Taille_liste_taboue",40);		
-		this.parametres.put("Taille_Voisinage", 10);
+		this.parametres.put("Itérations",1000);
+		this.parametres.put("Taille liste taboue",40);		
+		this.parametres.put("Taille Voisinage", 3);
+                this.donnees.put("Exclusions", 0);
+                this.donnees.put("Taille finale liste taboue", 0);
 	}
 
 	@Override
 	protected void launch() {
-            this.setSizeTabuList((int)this.getParametre("Taille_liste_taboue"));
-            this.setNumberOfLoops((int)this.getParametre("Iterations"));
-            this.sizeNeighborhood = (int) this.getParametre("Taille_Voisinage");
+            this.tabuList = new LinkedList<Keyboard>();
+            this.tabousExclus = 0;
+            this.setSizeTabuList((int)this.getParametre("Taille liste taboue"));
+            this.setNumberOfLoops((int)this.getParametre("Itérations"));
+            this.sizeNeighborhood = (int) this.getParametre("Taille Voisinage");
             this.compute();
+            this.setDonnee("Exclusions", this.tabousExclus);
+            this.setDonnee("Taille finale liste taboue", this.tabuList.size());
     	}
 
 	@Override
