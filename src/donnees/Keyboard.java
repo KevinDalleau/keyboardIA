@@ -1,7 +1,6 @@
 package donnees;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import commun.Helpers;
 import commun.Main;
@@ -92,8 +91,8 @@ public class Keyboard implements Cloneable {
 	}
 
 	public double getDistance(double a, double b) {
-		double distance = Math.sqrt((Math.pow((a-(a%10))/10,2))+Math.pow((b%10-a),2));
-		return distance;
+            double distance = Math.sqrt((Math.pow((b/10-a/10),2))+Math.pow((b%10-a%10),2));
+            return distance;
 	}
 
 	public void copy(Keyboard key){
@@ -117,10 +116,9 @@ public class Keyboard implements Cloneable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Random random = new Random();
 		int pos;
 		int i = 0;
-		while(((pos = random.nextInt(40)) != ' ') && i < 1) { //Attention, le reste du code est très sale
+		while(((pos = (int)(Math.random() * 40)) != ' ') && i < 1) { //Attention, le reste du code est très sale
 			System.out.println(pos);
 			if(pos%10 != 0) { // Si on n'est pas sur le bord gauche, on swappe avec la lettre à gauche
 				k1.swap(pos, pos-1);
