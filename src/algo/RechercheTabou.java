@@ -39,7 +39,7 @@ public class RechercheTabou extends Algorithme {
 				neighborhood.add(keyb);
 				count++;
 			}
-		}while(count != 4);
+		}while(count != 5);
 		return neighborhood;
 	}
 	
@@ -52,7 +52,7 @@ public class RechercheTabou extends Algorithme {
 		while(iteration < this.numberOfLoops) { 
 			Keyboard bestCandidate = new Keyboard();
 			s.display();
-			for(Keyboard k : s.getNeighborhood()) {
+			for(Keyboard k : this.generateNeighbor(s)) {
 				double bestCandidateCost;
 				if(bestCandidate.getCost() == 0) {
 					bestCandidateCost = 1000000000;
