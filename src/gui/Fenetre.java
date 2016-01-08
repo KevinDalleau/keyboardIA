@@ -85,7 +85,7 @@ public class Fenetre extends JFrame implements Observer{
             double[][] data = new double[2][a.getCouts().size()];
             for(int i = 0; i < a.getCouts().size(); i ++){
                 data[0][i] = i;
-                data[1][i] = a.getCouts().get(i);
+                data[1][i] = a.getCouts().get(i) / Main.bigramme.getSommeFreq();
             }
             this.ds.addSeries(a.getNom(), data);
         }
